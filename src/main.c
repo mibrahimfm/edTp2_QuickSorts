@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "classicQS.h"
 #include "medianQS.h"
 #include "firstElQS.h"
@@ -11,26 +12,31 @@
 
 int main(int argc, char** argv){
     int i, j, k;
-    int *A = descendingGenerator(50);
-    // int B[11] = {3,84,21,62,1,48,0,-52,33,155,11};
-    // int C[8] = {3,15,15,44,0,-12,155,11};
+    int *A;
+    int size = atoi(argv[3]);
+    if(strcmp(argv[2], "Ale") == 0)
+        A = randomGenerator(size);
+    else if(strcmp(argv[2],"OrdC")  == 0)
+        A = ascendingGenerator(size);
+    else if(strcmp(argv[2], "OrdD") == 0)
+        A = descendingGenerator(size);
 
-    ClassicQuickSort(A, 50);
-    //MedianQuickSort(B, 11);
-    // FirstElQuickSort(C, 8);
-    //Insert1QuickSort(C, 8);
-    //Insert5QuickSort(C, 8);
-    //Insert10QuickSort(B, 11);
-    //NonRecursiveQuickSort(A, 50);
-    // NonRecursiveQuickSort(B, 11);
-    // NonRecursiveQuickSort(C, 8);
+    if(strcmp(argv[1], "QC") == 0)
+        ClassicQuickSort(A, size);
+    else if(strcmp(argv[1], "QM3") == 0)
+        MedianQuickSort(A, size);
+    else if(strcmp(argv[1], "QPE") == 0)
+        FirstElQuickSort(A, size);        
+    else if(strcmp(argv[1], "QI1") == 0)
+        Insert1QuickSort(A, size);
+    else if(strcmp(argv[1], "QI5") == 0)
+        Insert5QuickSort(A, size);
+    else if(strcmp(argv[1], "QI10") == 0)
+        Insert10QuickSort(A, size);
+    else if(strcmp(argv[1], "QNR") == 0)
+        NonRecursiveQuickSort(A, size);
 
-    for(i = 0; i < 50; i++)
+    for(i = 0; i < size; i++)
         printf("%d\n", A[i]);
     printf("\n");
-    // for(j = 0; j < 11; j++)
-    //     printf("%d\n", B[j]);
-    // printf("\n");
-    // for(k = 0; k < 8; k++)
-    //     printf("%d\n", C[k]);
 }
