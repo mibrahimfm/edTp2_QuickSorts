@@ -1,32 +1,33 @@
-void FirstElPartition(int Esq, int Dir, int *i, int *j, int *A) {
+void FirstElPartition(int left, int right, int *i, int *j, int *arr) {
     int x, w; 
-    *i = Esq;
-    *j = Dir;
-    x = A[(*i + *j)/2];
-    /* obtem o pivo x */
+    *i = left;
+    *j = right;
+    //pivo como primeiro elemento
+    x = arr[*i];
     do {
-        while (x > A[*i])
+        while (x > arr[*i])
             (*i)++;
-        while (x < A[*j])
+        while (x < arr[*j])
             (*j)--;
         if (*i <= *j) {
-            w = A[*i];
-            A[*i] = A[*j];
-            A[*j] = w;
+            w = arr[*i];
+            arr[*i] = arr[*j];
+            arr[*j] = w;
             (*i)++; (*j)--;
         }
     }
     while (*i <= *j);
 }
 
-void FirstElSorting(int Esq, int Dir, int *A) {
+void FirstElSorting(int left, int right, int *arr) {
     int i, j;
-    FirstElPartition(Esq, Dir, &i, &j, A);
-    if (Esq < j)
-        FirstElSorting(Esq, j, A);
-        if (i < Dir)
-            FirstElSorting(i, Dir, A);
-    }
-void FirstElQuickSort(int *A, int n) {
-    FirstElSorting(0, n-1, A);
+    FirstElPartition(left, right, &i, &j, arr);
+    if (left < j)
+        FirstElSorting(left, j, arr);
+        if (i < right)
+            FirstElSorting(i,right, arr);
+}
+
+void FirstElQuickSort(int *arr, int n) {
+    FirstElSorting(0, n-1, arr);
 }

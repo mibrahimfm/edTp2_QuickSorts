@@ -1,53 +1,55 @@
-void MedianPartition(int Esq, int Dir, int *middle, int *i, int *j, int *A) {
+void MedianPartition(int left, int right, int *middle, int *i, int *j, int *arr) {
     int x, w; 
-    *i = Esq;
-    *j = Dir;
+    *i = left;
+    *j = right;
     *middle = (*i + *j)/2;
-    if(A[*i] > A[*j]){
-        if(A[*i] < A[*middle])
-            x = A[*i];
+
+    //Definindo o pivô como mediana de três
+    if(arr[*i] > arr[*j]){
+        if(arr[*i] < arr[*middle])
+            x = arr[*i];
         else{
-            if(A[*middle] > A[*j])
-                x = A[*middle];
+            if(arr[*middle] > arr[*j])
+                x = arr[*middle];
             else
-                x = A[*j];
+                x = arr[*j];
         }
     }
     else{
-        if(A[*j] < A[*middle])
-            x = A[*j];
+        if(arr[*j] < arr[*middle])
+            x = arr[*j];
         else{
-            if(A[*middle] > A[*i])
-                x = A[*middle];
+            if(arr[*middle] > arr[*i])
+                x = arr[*middle];
             else
-                x = A[*i];
+                x = arr[*i];
         }
     }
-    /* obtem o pivo x */
+
     do {
-        while (x > A[*i])
+        while (x > arr[*i])
             (*i)++;
-        while (x < A[*j])
+        while (x < arr[*j])
             (*j)--;
         if (*i <= *j) {
-            w = A[*i];
-            A[*i] = A[*j];
-            A[*j] = w;
+            w = arr[*i];
+            arr[*i] = arr[*j];
+            arr[*j] = w;
             (*i)++; (*j)--;
         }
     }
     while (*i <= *j);
 }
 
-void MedianSorting(int Esq, int Dir, int *A) {
+void MedianSorting(int left, int right, int *arr) {
     int i, j, middle;
-    MedianPartition(Esq, Dir,&middle, &i, &j, A);
-    if (Esq < j)
-        MedianSorting(Esq, j, A);
-        if (i < Dir)
-            MedianSorting(i, Dir, A);
+    MedianPartition(left, right,&middle, &i, &j, arr);
+    if (left < j)
+        MedianSorting(left, j, arr);
+    if (i < right)
+        MedianSorting(i, right, arr);
     }
 
-void MedianQuickSort(int *A, int n) {
-    MedianSorting(0, n-1, A);
+void MedianQuickSort(int *arr, int n) {
+    MedianSorting(0, n-1, arr);
 }

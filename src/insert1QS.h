@@ -1,74 +1,76 @@
 #ifndef  INSERT_H
 #define INSERT_H
 
-void insertionSort(int *v, int left, int right) { 
+//definição do método de ordenação por inserção
+void insertionSort(int left, int right, int *arr) { 
     int i = left, key, j; 
     for (; i <  right; i++) { 
-        key = v[i]; 
+        key = arr[i]; 
         j = i - 1; 
 
-        while (j >= 0 && v[j] > key) { 
-            v[j + 1] = v[j]; 
+        while (j >= 0 && arr[j] > key) { 
+            arr[j + 1] = arr[j]; 
             j = j - 1; 
         } 
-        v[j + 1] = key; 
+        arr[j + 1] = key; 
     } 
 }
 
-void InsertPartition(int Esq, int Dir,int *middle, int *i, int *j, int *A) {
+void InsertPartition(int left, int right,int *middle, int *i, int *j, int *arr) {
     int x, w; 
-    *i = Esq;
-    *j = Dir;
+    *i = left;
+    *j = right;
     *middle = (*i + *j)/2;
-    if(A[*i] > A[*j]){
-        if(A[*i] < A[*middle])
-            x = A[*i];
+    //definindo pivô como mediana de três
+    if(arr[*i] > arr[*j]){
+        if(arr[*i] < arr[*middle])
+            x = arr[*i];
         else{
-            if(A[*middle] > A[*j])
-                x = A[*middle];
+            if(arr[*middle] > arr[*j])
+                x = arr[*middle];
             else
-                x = A[*j];
+                x = arr[*j];
         }
     }
     else{
-        if(A[*j] < A[*middle])
-            x = A[*j];
+        if(arr[*j] < arr[*middle])
+            x = arr[*j];
         else{
-            if(A[*middle] > A[*i])
-                x = A[*middle];
+            if(arr[*middle] > arr[*i])
+                x = arr[*middle];
             else
-                x = A[*i];
+                x = arr[*i];
         }
     }
-    /* obtem o pivo x */
     do {
-        while (x > A[*i])
+        while (x > arr[*i])
             (*i)++;
-        while (x < A[*j])
+        while (x < arr[*j])
             (*j)--;
         if (*i <= *j) {
-            w = A[*i];
-            A[*i] = A[*j];
-            A[*j] = w;
+            w = arr[*i];
+            arr[*i] = arr[*j];
+            arr[*j] = w;
             (*i)++; (*j)--;
         }
     }
     while (*i <= *j);
 }
 
-void Insert1Sorting(int Esq, int Dir, int *A, int tamanho) {
+void Insert1Sorting(int left, int right, int *arr, int size) {
     int i, j, middle;
-    InsertPartition(Esq, Dir,&middle, &i, &j, A);
-    if(Dir <= 0.01 * tamanho)
-        insertionSort(A, Esq, Dir);
-    if (Esq < j)
-        Insert1Sorting(Esq, j, A, tamanho);
-    if (i < Dir)
-        Insert1Sorting(i, Dir, A, tamanho);
+    InsertPartition(left, right,&middle, &i, &j, arr);
+    //Condição de parada para usar InsertSort ao invés de QuickSort
+    if(right <= 0.01 * size)
+        insertionSort(left, right, arr);
+    if (left < j)
+        Insert1Sorting(left, j, arr, size);
+    if (i < right)
+        Insert1Sorting(i, right, arr, size);
 }
 
-void Insert1QuickSort(int *A, int n) {
-    Insert1Sorting(0, n-1, A, n);
+void Insert1QuickSort(int *arr, int n) {
+    Insert1Sorting(0, n-1, arr, n);
 }
 
 #endif

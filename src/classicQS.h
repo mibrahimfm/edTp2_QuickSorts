@@ -1,36 +1,37 @@
 #ifndef CLASSIC_H
 #define CLASSIC_H
 
-void ClassicPartition(int Esq, int Dir, int *i, int *j, int *A) {
-    int x, w; 
-    *i = Esq;
-    *j = Dir;
-    x = A[*i];
+void ClassicPartition(int left, int right, int *i, int *j, int *arr) {
+    int pivot, aux; 
+    *i = left;
+    *j = right;
+    //pivô como elemento central
+    pivot = arr[(*i + *j)/2];
     do {
-        while (x > A[*i])
+        while (pivot > arr[*i])
             (*i)++;
-        while (x < A[*j])
+        while (pivot < arr[*j])
             (*j)--;
         if (*i <= *j) {
-            w = A[*i];
-            A[*i] = A[*j];
-            A[*j] = w;
+            aux = arr[*i];
+            arr[*i] = arr[*j];
+            arr[*j] = aux;
             (*i)++; (*j)--;
         }
     }
     while (*i <= *j);
 }
 
-void ClassicSorting(int Esq, int Dir, int *A) {
+void ClassicSorting(int left, int right, int *arr) {
     int i, j;
-    ClassicPartition(Esq, Dir, &i, &j, A);
-    if (Esq < j)
-        ClassicSorting(Esq, j, A);
-        if (i < Dir)
-            ClassicSorting(i, Dir, A);
+    ClassicPartition(left, right, &i, &j, arr);
+    if (left < j)
+        ClassicSorting(left, j, arr);
+        if (i < right)
+            ClassicSorting(i, right, arr);
     }
-void ClassicQuickSort(int *A, int n) {
-    ClassicSorting(0, n-1, A);
+void ClassicQuickSort(int *arr, int n) {
+    ClassicSorting(0, n-1, arr);
 }
 
 #endif

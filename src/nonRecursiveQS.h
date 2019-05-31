@@ -2,7 +2,8 @@
 #include "stack.h"
 #include <stdio.h>
 
-void NonRecursiveQuickSort(int* A, int n){
+//Definindo QuickSort não recursivo
+void NonRecursiveQuickSort(int* arr, int n){
     struct Stack* stack = createStack(n);
     struct Pair item;
     int left, right, i, j;
@@ -15,7 +16,7 @@ void NonRecursiveQuickSort(int* A, int n){
 
     do{
         if(right > left){
-            ClassicPartition(left, right, &i, &j, A);
+            ClassicPartition(left, right, &i, &j, arr);
             if((j - left) > (right - i)){
                 item.right = j;
                 item.left = left;

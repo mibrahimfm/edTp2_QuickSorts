@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 #include "classicQS.h"
 #include "medianQS.h"
 #include "firstElQS.h"
@@ -11,32 +12,40 @@
 #include "arrayGenerator.h"
 
 int main(int argc, char** argv){
-    int i, j, k;
-    int *A;
-    int size = atoi(argv[3]);
-    if(strcmp(argv[2], "Ale") == 0)
-        A = randomGenerator(size);
-    else if(strcmp(argv[2],"OrdC")  == 0)
-        A = ascendingGenerator(size);
-    else if(strcmp(argv[2], "OrdD") == 0)
-        A = descendingGenerator(size);
+    //declarando variáveis necessárias para o progrma
+    int i, k;
+    int *arr;
+    char* variation = argv[1];
+    char* arrayType = argv[2];
+    int size = atoi(argv[3]);//convertendo o parâmetro para inteiro
 
-    if(strcmp(argv[1], "QC") == 0)
-        ClassicQuickSort(A, size);
-    else if(strcmp(argv[1], "QM3") == 0)
-        MedianQuickSort(A, size);
-    else if(strcmp(argv[1], "QPE") == 0)
-        FirstElQuickSort(A, size);        
-    else if(strcmp(argv[1], "QI1") == 0)
-        Insert1QuickSort(A, size);
-    else if(strcmp(argv[1], "QI5") == 0)
-        Insert5QuickSort(A, size);
-    else if(strcmp(argv[1], "QI10") == 0)
-        Insert10QuickSort(A, size);
-    else if(strcmp(argv[1], "QNR") == 0)
-        NonRecursiveQuickSort(A, size);
+    //definindo qual array gerar: Aleatório, crescente ou decrescente
+    if(strcmp(arrayType, "Ale") == 0)
+        arr = randomGenerator(size);
+    else if(strcmp(arrayType,"OrdC")  == 0)
+        arr = ascendingGenerator(size);
+    else if(strcmp(arrayType, "OrdD") == 0)
+        arr = descendingGenerator(size);
 
+    //definindo o tipo do QuickSort a ser chamado
+    if(strcmp(variation, "QC") == 0)
+        ClassicQuickSort(arr, size);
+    else if(strcmp(variation, "QM3") == 0)
+        MedianQuickSort(arr, size);
+    else if(strcmp(variation, "QPE") == 0)
+        FirstElQuickSort(arr, size);        
+    else if(strcmp(variation, "QI1") == 0)
+        Insert1QuickSort(arr, size);
+    else if(strcmp(variation, "QI5") == 0)
+        Insert5QuickSort(arr, size);
+    else if(strcmp(variation, "QI10") == 0)
+        Insert10QuickSort(arr, size);
+    else if(strcmp(variation, "QNR") == 0)
+        NonRecursiveQuickSort(arr, size);
+
+    //imprimindo resultados
+    printf("%s %s %d\n", variation, arrayType, size);
     for(i = 0; i < size; i++)
-        printf("%d\n", A[i]);
+        printf("%d ", arr[i]);
     printf("\n");
 }

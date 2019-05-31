@@ -1,16 +1,18 @@
 #include "insert1QS.h"
 
-void Insert5Sorting(int Esq, int Dir, int *A, int tamanho) {
+void Insert5Sorting(int left, int right, int *arr, int size) {
     int i, j, middle;
-    InsertPartition(Esq, Dir, &middle, &i, &j, A);
-    if(Dir <= 0.05 * tamanho)
-        insertionSort(A, Esq, Dir);
-    if (Esq < j)
-        Insert1Sorting(Esq, j, A, tamanho);
-    if (i < Dir)
-        Insert1Sorting(i, Dir, A, tamanho);
+    InsertPartition(left, right, &middle, &i, &j, arr);
+    
+    //Condição de parada para usar InsertSort ao invés de QuickSort
+    if(right <= 0.05 * size)
+        insertionSort(left, right, arr);
+    if (left < j)
+        Insert1Sorting(left, j, arr, size);
+    if (i < right)
+        Insert1Sorting(i, right, arr, size);
 }
 
-void Insert5QuickSort(int *A, int n) {
-    Insert5Sorting(0, n-1, A, n);
+void Insert5QuickSort(int *arr, int n) {
+    Insert5Sorting(0, n-1, arr, n);
 }
