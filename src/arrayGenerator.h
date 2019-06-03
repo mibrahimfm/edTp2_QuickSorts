@@ -5,7 +5,7 @@ int* randomGenerator(int size){
     int *arr = (int *)malloc (size * sizeof(int));
     int i = 0;
     for(; i < size; i++){
-        arr[i] = rand() % size + 1;
+        arr[i] = rand() % size + 1 ;
     }
     return arr;
 }
