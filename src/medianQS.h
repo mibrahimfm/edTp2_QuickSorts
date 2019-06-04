@@ -1,3 +1,7 @@
+
+static int medianCC = 0;
+static int medianMC = 0; 
+
 void MedianPartition(int left, int right, int *middle, int *i, int *j, int *arr) {
     int x, w; 
     *i = left;
@@ -27,11 +31,16 @@ void MedianPartition(int left, int right, int *middle, int *i, int *j, int *arr)
     }
 
     do {
-        while (x > arr[*i])
+        while (x > arr[*i]){
+            medianCC++;
             (*i)++;
-        while (x < arr[*j])
+        }
+        while (x < arr[*j]){
+            medianCC++;
             (*j)--;
+        }
         if (*i <= *j) {
+            medianCC++; medianMC++;
             w = arr[*i];
             arr[*i] = arr[*j];
             arr[*j] = w;

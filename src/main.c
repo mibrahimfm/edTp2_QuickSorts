@@ -13,18 +13,15 @@
 
 int main(int argc, char** argv){
     //declarando variáveis necessárias para o progrma
-    int i, j = 0, testRepeting = 0, allocator = 0;
+    int i, j = 0, testRepeting = 0, allocator = 0, comparisonCounter = 0, movementCounter = 0;
     int *arr;
     char* variation = argv[1];
     char* arrayType = argv[2];
     int size = atoi(argv[3]);//convertendo o parâmetro para inteiro
-    int **results = malloc(size*sizeof(int*));  //allocate memory to double pointer
-    for (; allocator < size; allocator++){
-        results[allocator] = malloc(20*sizeof(int*));
-    }
 
-    printf("%s %s %d\n", variation, arrayType, size);
-
+    int **results = malloc(size*sizeof(int*));              //alocando
+    for (; allocator < size; allocator++)                       //double
+        results[allocator] = malloc(20*sizeof(int*));  //pointer
 
     for(; testRepeting < 20; testRepeting++, j++){
         //definindo qual array gerar: Aleatório, crescente ou decrescente
@@ -60,6 +57,32 @@ int main(int argc, char** argv){
         //desalocando vetor utilizado antes de repetir o teste para evitar memory leak
         free(arr);
     }
+
+    //Calculando a média de comparações e movimentos em cada QS
+    if(strcmp(variation, "QC") == 0){
+        comparisonCounter = classicCC / 20; movementCounter = classicMC/20;
+    }
+    else if(strcmp(variation, "QM3") == 0){
+        comparisonCounter = medianCC / 20; movementCounter = medianMC/20;
+    }
+    else if(strcmp(variation, "QPE") == 0){
+        comparisonCounter = firstCC / 20; movementCounter = firstMC/20;
+    }   
+    else if(strcmp(variation, "QI1") == 0){
+        comparisonCounter = insertCC / 20; movementCounter = insertMC/20;
+    }
+    else if(strcmp(variation, "QI5") == 0){
+        comparisonCounter = insertCC / 20; movementCounter = insertMC/20;
+    }
+    else if(strcmp(variation, "QI10") == 0){
+        comparisonCounter = insertCC / 20; movementCounter = insertMC/20;
+    }
+    else if(strcmp(variation, "QNR") == 0){
+        comparisonCounter = classicCC / 20; movementCounter = classicMC/20;
+    }
+
+    printf("%s %s %d %d %d\n", variation, arrayType, size, comparisonCounter, movementCounter);
+
     for(i = 0; i < 20; i++){
         for(j = 0; j < size; j++)
             printf("%d ", results[j][i]);

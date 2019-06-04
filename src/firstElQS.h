@@ -1,3 +1,7 @@
+
+static int firstCC = 0;
+static int firstMC = 0; 
+
 void FirstElPartition(int left, int right, int *i, int *j, int *arr) {
     int x, w; 
     *i = left;
@@ -5,11 +9,16 @@ void FirstElPartition(int left, int right, int *i, int *j, int *arr) {
     //pivo como primeiro elemento
     x = arr[*i];
     do {
-        while (x > arr[*i])
+        while (x > arr[*i]){
+            firstCC++;
             (*i)++;
-        while (x < arr[*j])
+        }
+        while (x < arr[*j]){
+            firstCC++;
             (*j)--;
+        }
         if (*i <= *j) {
+            firstCC++; firstMC++;
             w = arr[*i];
             arr[*i] = arr[*j];
             arr[*j] = w;

@@ -1,6 +1,9 @@
 #ifndef CLASSIC_H
 #define CLASSIC_H
 
+static int classicCC = 0;
+static int classicMC = 0;
+
 void ClassicPartition(int left, int right, int *i, int *j, int *arr) {
     int pivot, aux; 
     *i = left;
@@ -8,11 +11,16 @@ void ClassicPartition(int left, int right, int *i, int *j, int *arr) {
     //pivô como elemento central
     pivot = arr[(*i + *j)/2];
     do {
-        while (pivot > arr[*i])
+        while (pivot > arr[*i]){
+            classicCC++;
             (*i)++;
-        while (pivot < arr[*j])
+        }
+        while (pivot < arr[*j]){
+            classicCC++; classicMC++;
             (*j)--;
+        }
         if (*i <= *j) {
+            classicCC++; classicMC;
             aux = arr[*i];
             arr[*i] = arr[*j];
             arr[*j] = aux;

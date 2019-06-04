@@ -1,6 +1,9 @@
 #ifndef  INSERT_H
 #define INSERT_H
 
+static int insertCC = 0;
+static int insertMC = 0;
+
 //definição do método de ordenação por inserção
 void insertionSort(int left, int right, int *arr) { 
     int i = left, key, j; 
@@ -8,7 +11,8 @@ void insertionSort(int left, int right, int *arr) {
         key = arr[i]; 
         j = i - 1; 
 
-        while (j >= 0 && arr[j] > key) { 
+        while (j >= 0 && arr[j] > key) {
+            insertCC++; insertMC++;
             arr[j + 1] = arr[j]; 
             j = j - 1; 
         } 
@@ -43,11 +47,16 @@ void InsertPartition(int left, int right,int *middle, int *i, int *j, int *arr) 
         }
     }
     do {
-        while (x > arr[*i])
+        while (x > arr[*i]){
             (*i)++;
-        while (x < arr[*j])
+            insertCC++;
+        }
+        while (x < arr[*j]){
             (*j)--;
+            insertCC++;
+        }
         if (*i <= *j) {
+            insertCC++; insertMC++;
             w = arr[*i];
             arr[*i] = arr[*j];
             arr[*j] = w;
