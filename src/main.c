@@ -18,11 +18,14 @@ int main(int argc, char** argv){
     char* variation = argv[1];
     char* arrayType = argv[2];
     int size = atoi(argv[3]);//convertendo o parâmetro para inteiro
+    clock_t start, end;
+    double timeAverage;
 
     int **results = malloc(size*sizeof(int*));              //alocando
     for (; allocator < size; allocator++)                       //double
         results[allocator] = malloc(20*sizeof(int*));  //pointer
 
+    start = clock();
     for(; testRepeting < 20; testRepeting++, j++){
         //definindo qual array gerar: Aleatório, crescente ou decrescente
         if(strcmp(arrayType, "Ale") == 0)
@@ -57,6 +60,10 @@ int main(int argc, char** argv){
         //desalocando vetor utilizado antes de repetir o teste para evitar memory leak
         free(arr);
     }
+    end = clock();
+
+    timeAverage = (end - start) / 20;
+
 
     //Calculando a média de comparações e movimentos em cada QS
     if(strcmp(variation, "QC") == 0){
@@ -81,13 +88,13 @@ int main(int argc, char** argv){
         comparisonCounter = classicCC / 20; movementCounter = classicMC/20;
     }
 
-    printf("%s %s %d %d %d\n", variation, arrayType, size, comparisonCounter, movementCounter);
+    printf("%s %s %d %d %d %f\n", variation, arrayType, size, comparisonCounter, movementCounter, timeAverage);
 
-    for(i = 0; i < 20; i++){
-        for(j = 0; j < size; j++)
-            printf("%d ", results[j][i]);
-        printf("\n");
-    }
+    // for(i = 0; i < 20; i++){
+    //     for(j = 0; j < size; j++)
+    //         printf("%d ", results[j][i]);
+    //     printf("\n");
+    // }
 
     //desalocando o vetor results
     free(results);

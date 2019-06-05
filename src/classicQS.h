@@ -16,7 +16,7 @@ void ClassicPartition(int left, int right, int *i, int *j, int *arr) {
             (*i)++;
         }
         while (pivot < arr[*j]){
-            classicCC++; classicMC++;
+            classicCC++;
             (*j)--;
         }
         if (*i <= *j) {
