@@ -40,7 +40,9 @@ void MedianPartition(int left, int right, int *middle, int *i, int *j, int *arr)
             (*j)--;
         }
         if (*i <= *j) {
-            medianCC++; medianMC++;
+            medianCC++;
+            if (*i < *j)
+                medianMC++;
             w = arr[*i];
             arr[*i] = arr[*j];
             arr[*j] = w;

@@ -56,7 +56,9 @@ void InsertPartition(int left, int right,int *middle, int *i, int *j, int *arr) 
             insertCC++;
         }
         if (*i <= *j) {
-            insertCC++; insertMC++;
+            insertCC++;
+        if (*i < *j)
+                insertMC++;
             w = arr[*i];
             arr[*i] = arr[*j];
             arr[*j] = w;

@@ -88,7 +88,7 @@ int main(int argc, char** argv){
         comparisonCounter = classicCC / 20; movementCounter = classicMC/20;
     }
 
-    printf("%s %s %d %d %d %f\n", variation, arrayType, size, comparisonCounter, movementCounter, timeAverage);
+    printf("%s %s %d %d %d %d\n", variation, arrayType, size, comparisonCounter, movementCounter, timeAverage);
 
     // for(i = 0; i < 20; i++){
     //     for(j = 0; j < size; j++)

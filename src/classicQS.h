@@ -1,7 +1,7 @@
 #ifndef CLASSIC_H
 #define CLASSIC_H
 
-static int classicCC = 0;
+static long  double classicCC = 0;
 static int classicMC = 0;
 
 void ClassicPartition(int left, int right, int *i, int *j, int *arr) {
@@ -20,7 +20,9 @@ void ClassicPartition(int left, int right, int *i, int *j, int *arr) {
             (*j)--;
         }
         if (*i <= *j) {
-            classicCC++; classicMC;
+            classicCC++;
+            if (*i < *j)
+                classicMC++;
             aux = arr[*i];
             arr[*i] = arr[*j];
             arr[*j] = aux;

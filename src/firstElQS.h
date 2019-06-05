@@ -18,7 +18,9 @@ void FirstElPartition(int left, int right, int *i, int *j, int *arr) {
             (*j)--;
         }
         if (*i <= *j) {
-            firstCC++; firstMC++;
+            firstCC++; 
+            if (*i < *j)
+               firstMC++;
             w = arr[*i];
             arr[*i] = arr[*j];
             arr[*j] = w;
