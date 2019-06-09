@@ -8,8 +8,9 @@ void ClassicPartition(int left, int right, int *i, int *j, int *arr) {
     int pivot, aux; 
     *i = left;
     *j = right;
-    //pivô como elemento central
+    //seleciona pivô como elemento central
     pivot = arr[(*i + *j)/2];
+    
     do {
         while (pivot > arr[*i]){
             classicCC++;
@@ -41,6 +42,7 @@ void ClassicSorting(int left, int right, int *arr) {
         if (i < right)
             ClassicSorting(i, right, arr);
     }
+
 void ClassicQuickSort(int *arr, int n) {
     ClassicSorting(0, n-1, arr);
 }

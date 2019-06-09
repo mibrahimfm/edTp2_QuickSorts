@@ -4,6 +4,7 @@
 
 //Definindo QuickSort não recursivo
 void NonRecursiveQuickSort(int* arr, int n){
+    //criando a pilha utilizada na função com tamanho n
     struct Stack* stack = createStack(n);
     struct Pair item;
     int left, right, i, j;
@@ -14,8 +15,10 @@ void NonRecursiveQuickSort(int* arr, int n){
     item.left = left;
     insert(stack, item);
 
+
     do{
         if(right > left){
+            //realiza a partição do vetor e empilha o maior subvetor
             ClassicPartition(left, right, &i, &j, arr);
             if((j - left) > (right - i)){
                 item.right = j;

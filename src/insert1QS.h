@@ -46,6 +46,7 @@ void InsertPartition(int left, int right,int *middle, int *i, int *j, int *arr) 
                 x = arr[*i];
         }
     }
+    
     do {
         while (x > arr[*i]){
             (*i)++;

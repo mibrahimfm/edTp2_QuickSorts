@@ -6,8 +6,9 @@ void FirstElPartition(int left, int right, int *i, int *j, int *arr) {
     int x, w; 
     *i = left;
     *j = right;
-    //pivo como primeiro elemento
+    //seleciona pivô como primeiro elemento
     x = arr[*i];
+    
     do {
         while (x > arr[*i]){
             firstCC++;

@@ -11,24 +11,31 @@
 #include "nonRecursiveQS.h"
 #include "arrayGenerator.h"
 
+
 int main(int argc, char** argv){
     //declarando variáveis necessárias para o progrma
-    int i, j = 0, testRepeating = 0, allocator = 0;
-    unsigned long long int comparisonCounter = 0, movementCounter = 0;
+    int i, j = 0, testRepeating = 0, allocator = 0;  // variáveis utilizados como iteradores para laços de repetição
+    unsigned long long int comparisonCounter = 0, movementCounter = 0; //média de comparações  e movimentações
     int *arr;
+    
+    //Recebendo os parâmetros que podem ser passados para a função main
     char* variation = argv[1];
     char* arrayType = argv[2];
     int size = atoi(argv[3]);//convertendo o parâmetro para inteiro
     char* optional = argv[4] != NULL ? argv[4] : " ";
-    int **results;
+
+    int **results;    //double pointer utilizado para imprimir vetores com passagem de parâmetro -p
+
+    //variáveis relacionadas ao cálculo do tempo
+    clock_t begin, end;
     double *times = (double*) malloc (20 * sizeof(double));
     double time_spent;
 
-    //double pointer utilizado para imprimir vetores com passagem de parâmetro -p
+    //alocando o array de impressão caso -p seja passado como parâmetro
     if(strcmp(optional, "-p") == 0){
 	results = malloc(size*sizeof(int*));        
-	for (; allocator < size; allocator++)                       //double;
-            results[allocator] = malloc(20*sizeof(int));  //pointer
+	for (; allocator < size; allocator++)                       
+            results[allocator] = malloc(20*sizeof(int)); 
     }
 
 
@@ -42,16 +49,16 @@ int main(int argc, char** argv){
             arr = descendingGenerator(size);
 
 
-        //alocando resultados para imprimir os vetores ordenados após os cálculos de tempo, ordenacoes, etc.
+        //caso -p tenha sido passado, armazena os vetores gerados em results a cada iteração
         if(strcmp(optional, "-p") == 0){
             for(i = 0; i < size; i++){
                 results[i][testRepeating] = arr[i];
             }
         }
 
-
         //começa a cronometrar o tempo do QS
-        clock_t begin = clock();
+        begin = clock();
+
         //definindo o tipo do QuickSort a ser chamado
         if(strcmp(variation, "QC") == 0)
             ClassicQuickSort(arr, size);
@@ -68,17 +75,21 @@ int main(int argc, char** argv){
         else if(strcmp(variation, "QNR") == 0)
             NonRecursiveQuickSort(arr, size);
 
-        clock_t end = clock();
+        //finaliza a cronometragem
+        end = clock();
+        //converte o tempo para microssegundos e o armazena em um vetor
         times[testRepeating] = (double)(end - begin) / CLOCKS_PER_SEC;
+        times[testRepeating] *= 1000000;
 
         //desalocando vetor utilizado antes de repetir o teste para evitar memory leak
         free(arr);
     }    
 
+    //ordena o vetor com os tempos de cada chamada do Quick Sort e calculada a mediana
+    ClassicQuickSort((int*) times, 20);
     time_spent = (times[9] + times[10]) / 2.0;
-    time_spent *= 1000000;
 
-    //Calculando a média de comparações e movimentos em cada QS
+    //Encontrando o Quick Sort que foi chamado e calculando a média de comparações e movimentações
     if(strcmp(variation, "QC") == 0){
         comparisonCounter = classicCC / 20; movementCounter = classicMC/20;
     }
@@ -102,9 +113,11 @@ int main(int argc, char** argv){
     }
 
 
+    //impriminido os valores encontrados
     printf("%s %s %d %llu %llu %0.f\n", variation, arrayType, size, comparisonCounter, movementCounter, time_spent);
     
 
+    //caso -p tenha sido passado, imprime os valores dos vetores gerados
     if(strcmp(optional, "-p") == 0){
         for(i = 0; i < 20; i++){
             for(j = 0; j < size; j++)

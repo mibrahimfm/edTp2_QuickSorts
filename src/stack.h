@@ -33,7 +33,7 @@ void insert(struct Stack* stack, struct Pair item){
     stack->array[stack->top++] = item;
 }
 
-//Remove um elemento do tipo pair da pilha
+//Remove o elemento do topo da pilha
 int pop(struct Stack* stack, struct Pair* item){
     if(isEmpty(stack))
         return 0;
