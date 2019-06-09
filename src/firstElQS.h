@@ -1,5 +1,5 @@
 
-static int firstCC = 0;
+static unsigned long long int firstCC = 0;
 static int firstMC = 0; 
 
 void FirstElPartition(int left, int right, int *i, int *j, int *arr) {

@@ -13,24 +13,26 @@
 
 int main(int argc, char** argv){
     //declarando variáveis necessárias para o progrma
-    int i, j = 0, testRepeting = 0, allocator = 0, comparisonCounter = 0, movementCounter = 0;
+    int i, j = 0, testRepeating = 0, allocator = 0;
+    unsigned long long int comparisonCounter = 0, movementCounter = 0;
     int *arr;
     char* variation = argv[1];
     char* arrayType = argv[2];
     int size = atoi(argv[3]);//convertendo o parâmetro para inteiro
-    clock_t start, end;
-    float timeAverage;
-    int* times = (int*) malloc(20 * sizeof(int));
     char* optional = argv[4] != NULL ? argv[4] : " ";
     int **results;
+    double *times = (double*) malloc (20 * sizeof(double));
+    double time_spent;
 
     //double pointer utilizado para imprimir vetores com passagem de parâmetro -p
     if(strcmp(optional, "-p") == 0){
-        *results = malloc(size*sizeof(int*));              //alocando
-        for (; allocator < size; allocator++)                       //double;
-            results[allocator] = malloc(20*sizeof(int*));  //pointer
+	results = malloc(size*sizeof(int*));        
+	for (; allocator < size; allocator++)                       //double;
+            results[allocator] = malloc(20*sizeof(int));  //pointer
     }
-    for(; testRepeting < 20; testRepeting++, j++){
+
+
+    for(; testRepeating < 20; testRepeating++, j++){
         //definindo qual array gerar: Aleatório, crescente ou decrescente
         if(strcmp(arrayType, "Ale") == 0)
             arr = randomGenerator(size);
@@ -43,14 +45,13 @@ int main(int argc, char** argv){
         //alocando resultados para imprimir os vetores ordenados após os cálculos de tempo, ordenacoes, etc.
         if(strcmp(optional, "-p") == 0){
             for(i = 0; i < size; i++){
-                results[i][j] = arr[i];
+                results[i][testRepeating] = arr[i];
             }
         }
 
 
         //começa a cronometrar o tempo do QS
-        start = clock();
-
+        clock_t begin = clock();
         //definindo o tipo do QuickSort a ser chamado
         if(strcmp(variation, "QC") == 0)
             ClassicQuickSort(arr, size);
@@ -67,18 +68,15 @@ int main(int argc, char** argv){
         else if(strcmp(variation, "QNR") == 0)
             NonRecursiveQuickSort(arr, size);
 
-        end = clock();
-
-        times[testRepeting] = (double) (end - start) / (CLOCKS_PER_SEC);
-
+        clock_t end = clock();
+        times[testRepeating] = (double)(end - begin) / CLOCKS_PER_SEC;
 
         //desalocando vetor utilizado antes de repetir o teste para evitar memory leak
         free(arr);
     }    
 
-    ClassicQuickSort(times, 20);
-
-    timeAverage = (times[10] + times[9]) / 2;
+    time_spent = (times[9] + times[10]) / 2.0;
+    time_spent *= 1000000;
 
     //Calculando a média de comparações e movimentos em cada QS
     if(strcmp(variation, "QC") == 0){
@@ -104,7 +102,8 @@ int main(int argc, char** argv){
     }
 
 
-    printf("%s %s %d %d %d %0.f\n", variation, arrayType, size, comparisonCounter, movementCounter, timeAverage);
+    printf("%s %s %d %llu %llu %0.f\n", variation, arrayType, size, comparisonCounter, movementCounter, time_spent);
+    
 
     if(strcmp(optional, "-p") == 0){
         for(i = 0; i < 20; i++){

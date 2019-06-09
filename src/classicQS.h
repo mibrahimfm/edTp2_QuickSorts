@@ -22,7 +22,7 @@ void ClassicPartition(int left, int right, int *i, int *j, int *arr) {
         if (*i <= *j) {
             if (*i < *j){ 
                  classicCC++;           
-                classicMC++;
+                 classicMC++;
             }
             aux = arr[*i];
             arr[*i] = arr[*j];
